@@ -101,16 +101,16 @@ jobs:
           fi
           echo "✓ FTP credentials found"
 
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT || '21' }}
+          port: ${{ secrets.FTP_PORT || '22' }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
-          server-dir: /public_html/
-          state-name: .ftp-state-kumpel
+          local_path: ./out/*
+          remote_path: /public_html/
+          sftp_only: true
 
       - name: Deployment Summary
         if: always()
