@@ -102,14 +102,14 @@ jobs:
           echo "✓ FTP credentials found"
 
       - name: Deploy to FTP
-        uses: milanmk/actions-file-deploy-to-ftp@v1.8
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT || 21 }}
+          port: ${{ secrets.FTP_PORT || '21' }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
-          remote-dir: /public_html/
+          server-dir: /public_html/
           state-name: .ftp-state-kumpel
 
       - name: Deployment Summary
