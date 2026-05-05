@@ -11,7 +11,7 @@ export default function Home() {
       <section
         className="relative text-center py-24 px-4 overflow-hidden"
         style={{
-          backgroundImage: 'url(/static/backgrounds/1.jpeg)',
+          backgroundImage: 'url(/assets/backgrounds/1.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

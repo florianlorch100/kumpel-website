@@ -8,7 +8,7 @@ export function Header() {
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/static/Logo.png"
+              src="/assets/Logo.png"
               alt="Kumpel Logo"
               width={32}
               height={32}

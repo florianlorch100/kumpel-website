@@ -62,7 +62,7 @@ export default function Manifest() {
                 values, and working principles.
               </p>
               <a
-                href="/static/Manifest_EN.docx"
+                href="/assets/Manifest_EN.docx"
                 download
                 className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
               >
@@ -79,7 +79,7 @@ export default function Manifest() {
                 tun, unsere Mission, Werte und Arbeitsprinzipien.
               </p>
               <a
-                href="/static/Manifest_DE.pdf"
+                href="/assets/Manifest_DE.pdf"
                 download
                 className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
               >
@@ -96,7 +96,7 @@ export default function Manifest() {
                 principles, and additional detail.
               </p>
               <a
-                href="/static/Manifest_v2.pdf"
+                href="/assets/Manifest_v2.pdf"
                 download
                 className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
               >
