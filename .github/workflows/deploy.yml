@@ -1,0 +1,129 @@
+name: Build, Test & Deploy to FTP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Lint
+        run: npm run lint --if-present
+        continue-on-error: true
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "out" ]; then
+            echo "❌ Build failed: out directory not created"
+            exit 1
+          fi
+          echo "✓ Build successful: out directory created"
+          ls -la out/ | head -20
+
+      - name: Start local webserver for smoke test
+        run: |
+          npx serve -l 3000 out &
+          SERVER_PID=$!
+          echo "✓ Local webserver started (PID: $SERVER_PID)"
+          sleep 2
+          
+          # Smoke test: Check if server responds to requests
+          echo "Running smoke tests..."
+          
+          # Test home page
+          if curl -f http://localhost:3000/ > /dev/null 2>&1; then
+            echo "✓ Home page responds (200 OK)"
+          else
+            echo "❌ Home page failed"
+            kill $SERVER_PID
+            exit 1
+          fi
+          
+          # Test manifest page
+          if curl -f http://localhost:3000/manifest/ > /dev/null 2>&1; then
+            echo "✓ Manifest page responds (200 OK)"
+          else
+            echo "❌ Manifest page failed"
+            kill $SERVER_PID
+            exit 1
+          fi
+          
+          # Test about page
+          if curl -f http://localhost:3000/about/ > /dev/null 2>&1; then
+            echo "✓ About page responds (200 OK)"
+          else
+            echo "❌ About page failed"
+            kill $SERVER_PID
+            exit 1
+          fi
+          
+          # Test contact page
+          if curl -f http://localhost:3000/contact/ > /dev/null 2>&1; then
+            echo "✓ Contact page responds (200 OK)"
+          else
+            echo "❌ Contact page failed"
+            kill $SERVER_PID
+            exit 1
+          fi
+          
+          echo "✓ All smoke tests passed!"
+          kill $SERVER_PID
+
+      - name: Check FTP credentials
+        run: |
+          if [ -z "${{ secrets.FTP_SERVER }}" ] || [ -z "${{ secrets.FTP_USERNAME }}" ] || [ -z "${{ secrets.FTP_PASSWORD }}" ]; then
+            echo "❌ Missing FTP credentials in GitHub Secrets"
+            echo "Please set: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD"
+            exit 1
+          fi
+          echo "✓ FTP credentials found"
+
+      - name: Deploy to FTP
+        uses: milanmk/actions-file-deploy-to-ftp@v1.8
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          port: ${{ secrets.FTP_PORT || 21 }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          remote-dir: /public_html/
+          state-name: .ftp-state-kumpel
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "Deployment Summary:"
+          echo "- Branch: ${{ github.ref }}"
+          echo "- Commit: ${{ github.sha }}"
+          echo "- FTP Target: ${{ secrets.FTP_SERVER }}:/public_html/"
+          echo "- Timestamp: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Workflow failed!"
+          echo "Check the logs above for details."
+          exit 1
