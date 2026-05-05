@@ -102,15 +102,16 @@ jobs:
           echo "✓ FTP credentials found"
 
       - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT || '22' }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local_path: ./out/*
-          remote_path: /public_html/
-          sftp_only: true
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u "${{ secrets.FTP_USERNAME }}","${{ secrets.FTP_PASSWORD }}" \
+            -p "${{ secrets.FTP_PORT || '22' }}" \
+            sftp://${{ secrets.FTP_SERVER }} <<EOF
+          set sftp:auto-confirm yes
+          set net:max-retries 3
+          mirror -R --verbose out/ /public_html/
+          quit
+          EOF
 
       - name: Deployment Summary
         if: always()
