@@ -109,7 +109,7 @@ jobs:
             sftp://${{ secrets.FTP_SERVER }} <<EOF
           set sftp:auto-confirm yes
           set net:max-retries 3
-          mirror -R --verbose out/ /public_html/
+          mirror -R --delete --verbose out/ /public_html/
           quit
           EOF
 
