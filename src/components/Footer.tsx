@@ -54,6 +54,26 @@ export function Footer() {
                   Send us a message
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/kumpel.kollektiv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://chat.whatsapp.com/GjY7QbUFLKFJI32T765YwZ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white"
+                >
+                  WhatsApp
+                </a>
+              </li>
             </ul>
           </div>
         </div>
