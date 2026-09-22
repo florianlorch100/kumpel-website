@@ -50,6 +50,14 @@ export function Header() {
               Contact
             </Link>
           </li>
+          <li>
+            <Link
+              href="/impressum"
+              className="hover:text-violet-600 transition-colors"
+            >
+              Impressum
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
