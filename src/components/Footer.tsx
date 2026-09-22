@@ -83,6 +83,9 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
             <p>© {currentYear} Kumpel. All rights reserved.</p>
             <div className="flex gap-4 mt-4 md:mt-0">
+              <Link href="/impressum" className="hover:text-white">
+                Impressum
+              </Link>
               <a href="#" className="hover:text-white">
                 Privacy Policy
               </a>
