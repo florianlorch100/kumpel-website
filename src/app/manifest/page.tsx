@@ -49,59 +49,48 @@ export default function Manifest() {
           bring to every event. Available for download in English and German.
         </p>
 
-        {/* Download Documents */}
+        {/* Manifest Documents */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Download Documents</h2>
-          <div className="grid gap-4">
-            <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-violet-500 hover:shadow-lg transition-all">
-              <h3 className="text-lg font-semibold mb-2">
-                Manifest — English (Version 1)
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Full manifest in English: who we are, what we do, our mission,
-                values, and working principles.
-              </p>
-              <a
-                href="/assets/Manifest_EN.docx"
-                download
-                className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
-              >
-                Download DOCX
-              </a>
+          <h2 className="text-2xl font-bold mb-6">Read the Manifest</h2>
+          <div className="grid gap-8">
+            <div className="border-2 border-gray-200 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">
+                  Manifest — English
+                </h3>
+                <a
+                  href="/assets/Manifest_EN.pdf"
+                  download
+                  className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
+                >
+                  Download PDF
+                </a>
+              </div>
+              <iframe
+                src="/assets/Manifest_EN.pdf"
+                title="Kumpel Manifest — English"
+                className="w-full h-[800px] rounded border border-gray-200"
+              />
             </div>
 
-            <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-violet-500 hover:shadow-lg transition-all">
-              <h3 className="text-lg font-semibold mb-2">
-                Manifest — Deutsch (Version 1)
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Das vollständige Manifest auf Deutsch: Wer wir sind, was wir
-                tun, unsere Mission, Werte und Arbeitsprinzipien.
-              </p>
-              <a
-                href="/assets/Manifest_DE.pdf"
-                download
-                className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
-              >
-                Download PDF
-              </a>
-            </div>
-
-            <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-violet-500 hover:shadow-lg transition-all">
-              <h3 className="text-lg font-semibold mb-2">
-                Manifest — Version 2
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Our updated version 2 manifest with extended content, revised
-                principles, and additional detail.
-              </p>
-              <a
-                href="/assets/Manifest_v2.pdf"
-                download
-                className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
-              >
-                Download PDF
-              </a>
+            <div className="border-2 border-gray-200 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">
+                  Manifest — Deutsch
+                </h3>
+                <a
+                  href="/assets/Manifest_DE.pdf"
+                  download
+                  className="inline-block px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition-colors"
+                >
+                  Download PDF
+                </a>
+              </div>
+              <iframe
+                src="/assets/Manifest_DE.pdf"
+                title="Kumpel Manifest — Deutsch"
+                className="w-full h-[800px] rounded border border-gray-200"
+              />
             </div>
           </div>
         </section>
